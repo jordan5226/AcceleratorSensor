@@ -7,15 +7,15 @@
  *    ---------------------- 
  *     VCC     ----    VCC
  *     GND     ----    GND
- *     RX      ----    TX
- *     TX      ----    RX
+ *     RX      ----    TX (yellow line)
+ *     TX      ----    RX (white line)
  *   
- *  USB to TTL           Nano
+ *  USB to TTL         Nano
  * --------------------------- 
- *     VCC     ----     X
+ *     3V3     ----    3V3
  *     GND     ----    GND
- *     RX      ----    D5
- *     TX      ----    D6
+ *     RX      ----    D6 (TX)(yellow line)
+ *     TX      ----    D5 (RX)(white line)
  *          
  *
  *  {Compile:}
@@ -26,7 +26,7 @@
  */
 #include <SoftwareSerial.h>
 
-//#define DBGSERIAL
+#define DBGSERIAL
 #ifdef DBGSERIAL
     SoftwareSerial serialDbg(5, 6); // RX, TX
 #else
@@ -100,7 +100,7 @@ void setup() {
     //serialDbg.println(F("DFPlayer Mini online."));
     
     myDFPlayer.setTimeOut(500); //Set serial communictaion time out 500ms
-    myDFPlayer.volume(15);  //Set volume value (0~30).
+    myDFPlayer.volume(20);  //Set volume value (0~30).
     myDFPlayer.EQ(DFPLAYER_EQ_NORMAL);
     myDFPlayer.outputDevice(DFPLAYER_DEVICE_SD);
 #endif
@@ -123,7 +123,8 @@ void loop() {
 
         if( nCrc == szRcv[ n ] )
         {
-            tof.nDistance = ( szRcv[ 4 ] << 8 ) | szRcv[ 5 ];
+            tof.nDistance = ( ( szRcv[ 4 ] << 8 ) | szRcv[ 5 ] ) - 20;
+            
             if( tof.nMode != szRcv[ 6 ] )
             {
                 tof.nMode  = szRcv[ 6 ];
@@ -283,4 +284,3 @@ void ChangeStep( bool bOnAccelatorPedal )
     g_bOnAccelatorPedal = bOnAccelatorPedal;
     nStepOnCnt          = 0;
 }
-

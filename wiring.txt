@@ -1,0 +1,20 @@
+Arduino Pro Mini
+ATmega328P 5V, 16MHz
+
+                        ______________
+                  D13 -|              |- D12
+USB to TTL power  3V3 -|              |- D11  SoftwareSerial TX ----> DFRobotDFPlayerMini RX
+                  REF -|              |- D10  SoftwareSerial RX ----> DFRobotDFPlayerMini TX
+                   A0 -|              |- D9
+                   A1 -|              |- D8
+                   A2 -|              |- D7
+                   A3 -|              |- D6   SoftwareSerial TX ----> USB to TTL RX
+                   A4 -|              |- D5   SoftwareSerial RX ----> USB to TTL TX
+                   A5 -|              |- D4
+                   A6 -|              |- D3
+                   A7 -|              |- D2
+                   5V -|              |- GND  USB to TTL GND
+                  RST -|              |- RST
+     12V-  -----> GND -|              |- RX0  VL53L0X TX
+     12V+  -----> VIN -|______________|- TX1  VL53L0X RX
+                        
